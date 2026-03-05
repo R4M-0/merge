@@ -97,11 +97,6 @@ Handled cases:
 3. Set `GITHUB_TOKEN` in Vercel Project Environment Variables.
 4. Deploy.
 
-One-click deploy link template (replace `YOUR_REPO_URL`):
-
-```md
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=YOUR_REPO_URL)
-```
 
 ## Example Generated Output
 See [`examples/sample-output.md`](examples/sample-output.md).
