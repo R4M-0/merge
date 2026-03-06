@@ -9,7 +9,7 @@ const RESUME_PIPELINE_VERSION = "resume-v2-2026-03-04";
 async function buildResume(username: string): Promise<ResumeResponse> {
   const raw = await collectGitHubData(username);
   const analysis = analyzeGitHubData(raw);
-  const resume = generateResume(raw, analysis);
+  const resume = await generateResume(raw, analysis);
 
   return {
     username: raw.username,

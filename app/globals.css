@@ -12,6 +12,8 @@
   --blue: #4f8dff;
   --mint: #56ffc7;
   --violet: #a78bfa;
+  --pink: #ff2c9c;
+  --orange: #ff9d2c;
   --danger: #ff7f93;
   --radius: 16px;
 }
@@ -49,34 +51,34 @@ main {
 /* ── Ambient background ──────────────────────────────────────────── */
 .bgLayer {
   position: absolute;
-  width: 55vw;
-  height: 55vw;
-  filter: blur(56px);
-  opacity: 0.30;
+  width: 60vw;
+  height: 60vw;
+  filter: blur(60px);
+  opacity: 0.45;
   pointer-events: none;
 }
 
 .bgOne {
-  top: -14vw;
-  left: -12vw;
-  background: radial-gradient(circle, rgba(80, 144, 255, 0.95) 0%, rgba(80, 144, 255, 0) 68%);
-  animation: driftA 18s ease-in-out infinite;
+  top: -20vw;
+  left: -15vw;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.95) 0%, rgba(167, 139, 250, 0) 68%);
+  animation: driftA 18s ease-in-out infinite alternate;
 }
 
 .bgTwo {
-  right: -16vw;
-  top: -6vw;
-  background: radial-gradient(circle, rgba(56, 240, 255, 0.80) 0%, rgba(56, 240, 255, 0) 72%);
-  animation: driftB 20s ease-in-out infinite;
+  right: -20vw;
+  top: -10vw;
+  background: radial-gradient(circle, rgba(44, 232, 255, 0.85) 0%, rgba(44, 232, 255, 0) 72%);
+  animation: driftB 20s ease-in-out infinite alternate;
 }
 
 .bgThree {
-  bottom: -18vw;
+  bottom: -15vw;
   left: 30%;
-  width: 48vw;
-  height: 48vw;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.6) 0%, rgba(167, 139, 250, 0) 70%);
-  animation: driftC 22s ease-in-out infinite;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, rgba(255, 44, 156, 0.6) 0%, rgba(255, 44, 156, 0) 70%);
+  animation: driftC 22s ease-in-out infinite alternate;
 }
 
 .scanline {
@@ -163,10 +165,12 @@ main {
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #ffffff 0%, var(--aqua) 45%, var(--violet) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--aqua) 25%, var(--violet) 50%, #ffffff 75%, var(--aqua) 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shine 5s linear infinite;
 }
 
 .heroSub {
@@ -302,15 +306,17 @@ button {
 
 button.primary {
   color: #031223;
-  background: linear-gradient(125deg, var(--aqua), var(--blue));
-  box-shadow: 0 10px 30px rgba(53, 176, 255, 0.32);
+  background: linear-gradient(125deg, var(--aqua), var(--violet));
+  background-size: 200% auto;
+  box-shadow: 0 10px 30px rgba(167, 139, 250, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.5);
   font-size: 0.92rem;
+  transition: all 0.3s ease;
 }
 
 button.primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow: 0 14px 36px rgba(53, 176, 255, 0.42);
+  transform: translateY(-3px) scale(1.02);
+  background-position: right center;
+  box-shadow: 0 14px 36px rgba(167, 139, 250, 0.52), inset 0 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 button.secondary {
@@ -826,6 +832,12 @@ pre::-webkit-scrollbar-thumb:hover {
 @keyframes breathe {
   0%, 100% { filter: brightness(0.96); }
   50% { filter: brightness(1.22); }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* ── Responsive ──────────────────────────────────────────────────── */

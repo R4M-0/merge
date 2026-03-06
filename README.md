@@ -6,7 +6,7 @@ A production-ready Next.js (App Router) web app that converts public GitHub acti
 - Username input with loading, validation, and error states
 - GitHub REST API ingestion (no scraping)
 - Data analysis for language focus, contribution quality, and activity recency
-- Recruiter-ready bullet generation with neutral wording for low-activity profiles
+- AI-Powered recruiter-ready bullet generation and summaries via OpenRouter
 - Export options:
   - Markdown (copy + download)
   - LaTeX (download)
@@ -44,11 +44,12 @@ Create `.env.local`:
 
 ```bash
 GITHUB_TOKEN=ghp_your_token_here
+OPENROUTER_API_KEY=sk-or-v1-your_openrouter_key
 ```
 
 Notes:
-- `GITHUB_TOKEN` is optional but strongly recommended for higher rate limits.
-- Use a fine-grained personal access token with read-only public metadata access.
+- `GITHUB_TOKEN` is optional but strongly recommended for higher rate limits. Use a fine-grained personal access token with read-only public metadata access.
+- `OPENROUTER_API_KEY` is optional but highly recommended to power the dynamic AI resume generation (defaults to a static builder if omitted). You can use free models like `google/gemini-2.0-flash-lite-preview-02-05:free`.
 
 ## Local Development
 
@@ -94,9 +95,5 @@ Handled cases:
 
 1. Push this project to a GitHub repository.
 2. Import repository into Vercel.
-3. Set `GITHUB_TOKEN` in Vercel Project Environment Variables.
+3. Set `GITHUB_TOKEN` and `OPENROUTER_API_KEY` in Vercel Project Environment Variables.
 4. Deploy.
-
-
-## Example Generated Output
-See [`examples/sample-output.md`](examples/sample-output.md).

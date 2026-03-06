@@ -70,11 +70,11 @@ export default function HomePage() {
     () =>
       result
         ? [
-            { label: "Public Repos", value: result.raw.publicRepos },
-            { label: "Merged PRs", value: result.raw.contributionMetrics.pullRequestsMerged },
-            { label: "External Repos", value: result.raw.contributionMetrics.externalReposContributed },
-            { label: "Activity 90d", value: result.raw.activity.last90Days },
-          ]
+          { label: "Public Repos", value: result.raw.publicRepos },
+          { label: "Merged PRs", value: result.raw.contributionMetrics.pullRequestsMerged },
+          { label: "External Repos", value: result.raw.contributionMetrics.externalReposContributed },
+          { label: "Activity 90d", value: result.raw.activity.last90Days },
+        ]
         : [],
     [result],
   );
@@ -174,7 +174,7 @@ export default function HomePage() {
             <span className="chip chipGlow">Recruiter Mode</span>
           </div>
           <h1>
-            <span className="gradientText">Merge</span>
+            <span className="gradientText">Merge Your GitHub into a Resume</span>
             <span className="heroSub">Evidence-first generation with portfolio-grade output.</span>
           </h1>
           <p className="heroDesc">

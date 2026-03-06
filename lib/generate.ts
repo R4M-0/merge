@@ -133,9 +133,9 @@ function toMarkdown(
   const languageRows =
     raw.languageDistribution.length > 0
       ? raw.languageDistribution
-          .slice(0, 6)
-          .map((lang) => `| ${lang.language} | ${lang.percentage}% |`)
-          .join("\n")
+        .slice(0, 6)
+        .map((lang) => `| ${lang.language} | ${lang.percentage}% |`)
+        .join("\n")
       : "| — | No language data available |";
 
   const repoBlocks = raw.topRepos
@@ -264,9 +264,9 @@ function toLatex(
   const languageItems =
     raw.languageDistribution.length > 0
       ? raw.languageDistribution
-          .slice(0, 6)
-          .map((lang) => `${escapeLatex(lang.language)} (${lang.percentage}\\%)`)
-          .join(" \\textbullet{} ")
+        .slice(0, 6)
+        .map((lang) => `${escapeLatex(lang.language)} (${lang.percentage}\\%)`)
+        .join(" \\textbullet{} ")
       : "No language data available.";
 
   const repoBlocks = raw.topRepos
@@ -385,11 +385,70 @@ ${notableItems}
 `;
 }
 
-export function generateResume(raw: RawGitHubData, analysis: AnalysisResult): ResumeContent {
+export async function generateResume(raw: RawGitHubData, analysis: AnalysisResult): Promise<ResumeContent> {
   const displayName = raw.displayName || raw.username;
   const headline = `${displayName} - GitHub Impact Summary`;
-  const summary = buildProfileSummary(raw, analysis);
-  const bullets = buildBullets(raw, analysis);
+
+  let summary = "";
+  let bullets: string[] = [];
+
+  const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+
+  if (openRouterApiKey) {
+    try {
+      const prompt = `You are an expert technical recruiter and resume writer. Based on the following GitHub data and analysis for a developer named ${displayName}, generate a professional summary and a list of bullet points highlighting their impact and open-source experience.
+      
+Rules:
+1. The summary should be a single paragraph.
+2. The bullets should be 3-5 impressive bullet points. Focus on quantifiable metrics, languages, and collaboration.
+3. Return ONLY a JSON object with the keys "summary" (string) and "bullets" (array of strings), and nothing else.
+
+Data:
+${JSON.stringify({ raw, analysis }, null, 2)}`;
+
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${openRouterApiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-lite-preview-02-05:free",
+          response_format: { type: "json_object" },
+          messages: [
+            { role: "user", content: prompt }
+          ]
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        let content = data.choices[0].message.content;
+
+        // Sometimes models return markdown blocks even with response_format json_object
+        if (content.startsWith("\`\`\`json")) {
+          content = content.replace(/^\`\`\`json\n?/, '').replace(/\n?\`\`\`$/, '');
+        }
+
+        const parsed = JSON.parse(content);
+        if (parsed.summary && Array.isArray(parsed.bullets)) {
+          summary = parsed.summary;
+          bullets = parsed.bullets;
+        } else {
+          throw new Error("Invalid format from OpenRouter");
+        }
+      } else {
+        throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+      }
+    } catch (e) {
+      console.error("Failed to generate with OpenRouter, falling back to basic generation:", e);
+      summary = buildProfileSummary(raw, analysis);
+      bullets = buildBullets(raw, analysis);
+    }
+  } else {
+    summary = buildProfileSummary(raw, analysis);
+    bullets = buildBullets(raw, analysis);
+  }
 
   return {
     headline,
