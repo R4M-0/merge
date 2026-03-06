@@ -174,7 +174,7 @@ export default function HomePage() {
             <span className="chip chipGlow">Recruiter Mode</span>
           </div>
           <h1>
-            <span className="gradientText">Merge your GitHub to a Resume</span>
+            <span className="gradientText">Merge</span>
             <span className="heroSub">Evidence-first generation with portfolio-grade output.</span>
           </h1>
           <p className="heroDesc">
