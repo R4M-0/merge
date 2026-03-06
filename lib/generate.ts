@@ -409,14 +409,13 @@ Data:
 ${JSON.stringify({ raw, analysis }, null, 2)}`;
 
       const openrouter = new OpenRouter({ apiKey: openRouterApiKey });
-      // @ts-ignore - The @openrouter/sdk version types might conflict with direct object assignment
       const stream = await openrouter.chat.send({
-        messages: [
-          { role: "user", content: prompt }
-        ],
         chatGenerationParams: {
+          messages: [
+            { role: "user", content: prompt }
+          ],
           model: "stepfun/step-3.5-flash:free",
-          response_format: { type: "json_object" },
+          responseFormat: { type: "json_object" },
           stream: true
         }
       });
