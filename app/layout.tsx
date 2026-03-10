@@ -27,8 +27,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (() => {
+                const stored = localStorage.getItem("merge-theme");
+                const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+                const theme = stored || (prefersLight ? "light" : "dark");
+                document.documentElement.dataset.theme = theme;
+              })();
+            `,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
