@@ -198,6 +198,7 @@ Handled scenarios:
 
 ```bash
 npm run dev
+npm run lint
 npm run build
 npm run start
 npm run typecheck
@@ -211,4 +212,3 @@ npm run typecheck
 4. Deploy.
 
 This project does not require a database or extra server configuration.
-
