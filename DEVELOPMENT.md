@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js 18+ (TypeScript 5.7+)
+- Node.js 20+ (TypeScript 5.7+)
 - GitHub Personal Access Token (for higher API rate limits)
 
 ## Setup
@@ -11,7 +11,7 @@
 # Install dependencies
 npm install
 
-# Create .env.local with your GitHub token
+# Create .env.local from the example file
 cp .env.example .env.local
 # Edit .env.local and add your token
 ```
@@ -109,12 +109,17 @@ If you hit limits during development, the API will return `429 RATE_LIMITED` wit
    npm run typecheck
    ```
 
-2. **Test the build locally:**
+2. **Run lint before committing:**
+   ```bash
+   npm run lint
+   ```
+
+3. **Test the build locally:**
    ```bash
    npm run build
    ```
 
-3. **Use descriptive commit messages** following conventional commits:
+4. **Use descriptive commit messages** following conventional commits:
    - `feat: add feature X`
    - `fix: resolve issue with Y`
    - `refactor: improve code clarity in Z`
@@ -122,7 +127,7 @@ If you hit limits during development, the API will return `429 RATE_LIMITED` wit
 
 ## Deployment
 
-This project is built for Vercel but works on any Node.js 18+ environment:
+This project is built for Vercel but works on any Node.js 20+ environment:
 
 ```bash
 npm run build

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { ResumeShell } from "@/components/resume-shell";
 import { GitHubApiError } from "@/lib/github";
 import { getResumeData } from "@/lib/resume";
+import { ResumeResponse } from "@/types/resume";
 
 type UsernamePageProps = {
   params: Promise<{
@@ -20,20 +21,26 @@ export async function generateMetadata({ params }: UsernamePageProps): Promise<M
 
 export default async function UsernamePage({ params }: UsernamePageProps) {
   const { username } = await params;
+  let initialUsername = username;
+  let initialError: string | undefined;
+  let initialResult: ResumeResponse | undefined;
 
   try {
-    const result = await getResumeData(username);
-    return <ResumeShell initialUsername={result.username} initialResult={result} />;
+    initialResult = await getResumeData(username);
+    initialUsername = initialResult.username;
   } catch (error) {
     if (error instanceof GitHubApiError) {
-      return <ResumeShell initialUsername={username} initialError={error.message} />;
+      initialError = error.message;
+    } else {
+      initialError = "Unexpected server error while generating this resume.";
     }
-
-    return (
-      <ResumeShell
-        initialUsername={username}
-        initialError="Unexpected server error while generating this resume."
-      />
-    );
   }
+
+  return (
+    <ResumeShell
+      initialUsername={initialUsername}
+      initialResult={initialResult}
+      initialError={initialError}
+    />
+  );
 }
