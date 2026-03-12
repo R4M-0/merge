@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { ResumeShell } from "@/components/resume-shell";
 import { GitHubApiError } from "@/lib/github";
 import { getResumeData } from "@/lib/resume";
-import { ResumeResponse } from "@/types/resume";
+import type { ResumeResponse } from "@/types/resume";
 
 type UsernamePageProps = {
   params: Promise<{
