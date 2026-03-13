@@ -74,6 +74,11 @@ merge/
 
 1. Create `.env.local`:
 
+
+## Quick Start
+
+1. Create `.env.local`:
+
 ```env
 GITHUB_TOKEN=
 OPENROUTER_API_KEY=
@@ -212,3 +217,4 @@ npm run typecheck
 4. Deploy.
 
 This project does not require a database or extra server configuration.
+
