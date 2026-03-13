@@ -29,6 +29,7 @@ Be respectful, inclusive, and professional in all interactions.
    ```bash
    npm run typecheck
    npm run lint
+   npm run build
    ```
 6. **Push and open a pull request** with a clear description
 
@@ -67,6 +68,7 @@ docs(README): add deployment section
 - **Write a clear PR description** explaining what and why
 - **Link related issues** with "Closes #123"
 - **Keep commits clean** (can squash if needed)
+- **Make sure CI passes** before requesting review
 
 ## Questions?
 

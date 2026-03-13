@@ -74,6 +74,11 @@ merge/
 
 1. Create `.env.local`:
 
+
+## Quick Start
+
+1. Create `.env.local`:
+
 ```env
 GITHUB_TOKEN=
 OPENROUTER_API_KEY=
@@ -198,6 +203,7 @@ Handled scenarios:
 
 ```bash
 npm run dev
+npm run lint
 npm run build
 npm run start
 npm run typecheck
